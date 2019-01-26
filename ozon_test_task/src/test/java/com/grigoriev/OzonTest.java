@@ -87,7 +87,7 @@ public class OzonTest {
         if (productCheckBox.isSelected()) {
             productCheckBox.click();
         }
-        driver.findElement(By.xpath("//button[@class=\"box-btn button default\"]")).click();
+        driver.findElement(By.xpath("//*[@data-test-id=\"cart-delete-selected-btn\"]")).click();
 
     }
 
