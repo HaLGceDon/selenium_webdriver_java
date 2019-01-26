@@ -15,7 +15,7 @@ public class OzonTest {
     private static int productPrice;
 
 
-    @Test
+    @Test (description = "Настроить driver и открыть в браузере сайт https://www.ozon.ru/")
     public static void test01() {
         System.setProperty("webdriver.gecko.driver", "F:\\Java\\GeckoDriver\\geckodriver.exe");
         driver = new FirefoxDriver();
@@ -26,7 +26,7 @@ public class OzonTest {
         driver.get("https://ozon.ru/");
     }
 
-    @Test
+    @Test (description = "В меню \"Каталог товаров\" выбрать категорию \"Музыка\".")
     public static void test02() {
         WebElement catalogButton = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[1]/header/div[3]/div/div/div[1]/span"));
         catalogButton.click();
@@ -34,20 +34,20 @@ public class OzonTest {
         musicButton.click();
     }
 
-    @Test
+    @Test (description = "Проверить, что открылся список товаров.")
     public static void test03() {
         WebElement tittle = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/div[1]/h1"));
         String sTittle = tittle.getText();
         Assert.assertEquals("Музыка", sTittle);
     }
 
-    @Test
+    @Test (description = "Выбрать первый товар.")
     public static void test04() {
         WebElement firstProduct = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[1]/div[3]/div/div[2]/div[2]/div/div[1]/div/div[1]/a/div[3]/span"));
         firstProduct.click();
     }
 
-    @Test
+    @Test (description = "Запомнить стоимость и название данного товара.")
     public static void test05() {
         if (driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]")).isDisplayed()) {
             driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]")).click();
@@ -60,17 +60,17 @@ public class OzonTest {
         productPrice = Integer.parseInt(productPriceString);
     }
 
-    @Test
+    @Test (description = "Добавить его в корзину.")
     public static void test06() {
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/div[5]/div")).click();
     }
 
-    @Test
+    @Test (description = "Открыть корзину.")
     public static void test07() {
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/div[5]/div/a")).click();
     }
 
-    @Test
+    @Test (description = "Проверить то, что в корзине находится раннее выбранный товар и его стоимость равна сохраненной стоимости.")
     public static void test08() {
         WebElement productNameInBasket = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div/div[2]/div[2]/div[2]/div[2]/div[2]/div/a"));
         String productNameInBasketString= productNameInBasket.getText();
@@ -81,7 +81,7 @@ public class OzonTest {
         Assert.assertEquals(productPrice, productPriceInBasketInt);
     }
 
-    @Test
+    @Test (description = "Выбрать этот товар в корзине и «Удалить» из корзины.")
     public static void test09() {
         WebElement productCheckBox = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/div/div/div[2]/div[1]/div[2]/div/div[2]/div[2]/div[2]/div[1]/label"));
         if (productCheckBox.isSelected()) {
@@ -91,14 +91,14 @@ public class OzonTest {
 
     }
 
-    @Test
+    @Test (description = "Проверить, что корзина пуста.")
     public static void test10() {
         WebElement emptyBasket = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/div/div/div/h1"));
         Assert.assertEquals("Корзина пуста", emptyBasket.getText());
     }
 
 
-   @Test
+   @Test (description = "Закрыть браузер.")
     public static void test11() {
         driver.quit();
     }
